@@ -1,0 +1,26 @@
+[package]
+authors = ["Christopher Kolstad <git@chriswk.no>", "Simon Hornby <liquidwicked64@gmail.com>"]
+categories = ["webprogramming", "games", "sudoku"]
+description = "A web application for playing sudoku"
+documentation = "https://docs.rs/sudoku-webserver"
+homepage = "https://github.com/chriswk/sudoku-webserver-rs"
+keywords = ["web", "app", "webapp", "wasm", "webassembly", "sudoku"]
+license = "MIT"
+name = "sudoku-webserver"
+readme = "README.md"
+repository = "https://github.com/chriswk/sudoku-webserver-rs"
+version = "0.1.0"
+edition = "2021"
+
+[badges]
+codecov = { repository = "chriswk/sudoku-server-rs", branch = "main" }
+maintenance = { status = "actively-developed" }
+
+
+[workspace]
+members = [
+  "solver",
+  "generator",
+  "backend",
+  "frontend"
+]
