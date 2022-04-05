@@ -16,7 +16,7 @@ fn main() {
     let args = Args::parse();
     match args.puzzle {
         Some(p) => {
-            solver::treat_grid(&p)
+            solver::treat_grid(&p);
         }
         _ => {}
     }

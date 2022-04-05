@@ -4,7 +4,7 @@ use std::fs::File;
 use std::io;
 use std::io::BufRead;
 use std::sync::RwLock;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 use rayon::prelude::{IndexedParallelIterator, IntoParallelRefIterator, ParallelIterator};
 use crate::constants::{ADJACENT_CELLS, ADJACENT_VALUES};
 
@@ -301,9 +301,8 @@ fn empty_grid() -> Grid {
     [CellValue::Possibilities([true; 9]); 81]
 }
 
-pub fn treat_grid(grid_string: &str) {
+pub fn treat_grid(grid_string: &str) -> Duration {
     let grid: Grid = parse_grid(grid_string);
-
     let now = Instant::now();
     let new_grid = solve_grid(grid);
     let duration =  now.elapsed();
@@ -316,15 +315,18 @@ pub fn treat_grid(grid_string: &str) {
             println!("Couldn't solve the puzzle in {} us", duration.as_micros());
         }
     }
+    duration
 }
 
 pub fn solve_file(f: File) {
     let lines = io::BufReader::new(f).lines();
+    let mut durations: Vec<Duration> = vec![];
     for line in lines {
         if let Ok(l) = line {
-            treat_grid(&l);
+            durations.push(treat_grid(&l));
         }
     }
+    println!("Longest puzzle took {} us", durations.iter().map(|d| d.as_micros()).max().expect("There are durations here"))
 }
 
 
